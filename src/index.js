@@ -6,6 +6,8 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Index from "./Page";
 import Tools from "./Page/tools";
 import './i18n/i18n';
+import Profil from "./Page/profil";
+import Login from "./Page/login";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,6 +15,8 @@ root.render(
         <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/tools" element={<Tools />} />
+            <Route path="/profil" element={<Profil />} />
+            <Route path="/login" element={<Login />} />
         </Routes>
     </BrowserRouter>
 );

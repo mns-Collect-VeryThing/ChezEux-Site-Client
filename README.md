@@ -13,6 +13,10 @@ Avec comme outils :
 - La bibliothèque i18next pour la traduction
 - La bibliothèque country-flag-icons pour les drapeaux
 
+Outil ajouté sur ce projet :
+- La bibliothèque react-icons pour les icônes
+- La bibliothèque hook-form pour les formulaires
+
 
 Structure du projet :
 

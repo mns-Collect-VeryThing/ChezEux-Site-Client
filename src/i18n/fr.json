@@ -2,5 +2,16 @@
   "Welcome to React": "Bienvenue à React et react-i18next",
   "Toast" : "Toast moi",
   "Toast message" : "Message toasté",
-  "Tools" : "Outils"
+  "Tools" : "Outils",
+  "header.about" : "A propos",
+  "header.shop" : "Boutique",
+  "header.contact" : "Contact",
+  "login.title" : "Se connecter",
+  "login.mail" : "Adresse mail",
+  "login.password" : "Mot de passe",
+  "login.actionButton" : "Connexion",
+  "login.createAccount" : "Créer un compte",
+  "login.forgotPassword" : "Mot de passe oublié ?",
+  "login.error.login" : "Votre email est requis",
+  "login.error.password" : "Votre mot de passe est requis"
 }
