@@ -1,17 +1,26 @@
 import React from 'react';
 import Header from "../Component/header";
 import Footer from "../Component/footer";
-import Toast from "../Component/toast";
 import { useTranslation } from 'react-i18next';
-import ChangeLanguages from "../Component/changeLanguages";
+import ProductCard from "../Component/productCard";
 function Index() {
     const { t } = useTranslation();
     return (
         <>
             <Header/>
-            <Toast />
-            <div>{t('Welcome to React')}</div>
-            <ChangeLanguages />
+            {/*<Toast />*/}
+            {/*<div>{t('Welcome to React')}</div>*/}
+            {/*<ChangeLanguages />*/}
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="grid grid-cols-3 gap-4 py-8">
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                    <ProductCard />
+                </div>
+            </div>
             <Footer/>
         </>
     );
