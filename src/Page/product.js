@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {toast, Toaster} from "react-hot-toast";
+import PrimaryCard from "../Component/HomeCard/primaryCard";
 function Product() {
 
     const {
@@ -45,11 +46,11 @@ function Product() {
 
     return (
         <>
-            <Header />
+            <Header/>
             <Toaster/>
-            <div className="min-h-screen bg-gray-100">
-                <div className="py-12">
-                    <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
+
+            <div className="mx-auto min-h-screen">
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="p-4">
                                 <Swiper
@@ -115,7 +116,6 @@ function Product() {
                         </div>
 
                     </div>
-                </div>
             </div>
             <Footer/>
         </>
