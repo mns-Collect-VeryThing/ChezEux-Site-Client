@@ -9,6 +9,7 @@ import './i18n/i18n';
 import Profil from "./Page/profil";
 import Login from "./Page/login";
 import Product from "./Page/product";
+import Cart from "./Page/cart";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -18,6 +19,7 @@ root.render(
             <Route path="/tools" element={<Tools />} />
             <Route path="/profil" element={<Profil />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<Product />} />
         </Routes>
     </BrowserRouter>
