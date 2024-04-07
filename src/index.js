@@ -10,6 +10,7 @@ import Profil from "./Page/profil";
 import Login from "./Page/login";
 import Product from "./Page/product";
 import Cart from "./Page/cart";
+import Shop from "./Page/shop";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,6 +20,7 @@ root.render(
             <Route path="/tools" element={<Tools />} />
             <Route path="/profil" element={<Profil />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<Product />} />
         </Routes>

@@ -85,7 +85,7 @@ function Cart() {
                                     <div className="flex items-center">
                                         <input type="number" className="form-input w-16" value={item.quantity}/>
                                         <button onClick={() => removeFromCart(item.id)}
-                                                className="btn btn-primary ml-4">Supprimer
+                                                className="btn btn-outline btn-primary ml-4">Supprimer
                                         </button>
                                     </div>
                                 </div>
@@ -108,7 +108,12 @@ function Cart() {
                                 </div>
                             </div>
                             <hr/>
-                            <div className="flex justify-between">
+                            <div className="py-4">
+                                <input type="text" placeholder="Code Promo"
+                                       className="input input-bordered input-primary w-full max-w-xs"/>
+                            </div>
+                            <hr/>
+                            <div className="flex justify-between pt-4">
                                 <p className="text-xl text-gray-800">Total :</p>
                                 <p className="text-xl text-gray-800">${calculateTotal()}</p>
                             </div>
