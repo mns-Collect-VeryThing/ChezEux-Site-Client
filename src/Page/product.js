@@ -31,7 +31,7 @@ function Product() {
         name: "Nom du produit",
         description: "Description du produit",
         price: "$99.99",
-        imageUrl: "https://via.placeholder.com/300",
+        imageUrl: "https://via.placeholder.com/500",
     };
 
     const [selectedColor, setSelectedColor] = useState(null);
