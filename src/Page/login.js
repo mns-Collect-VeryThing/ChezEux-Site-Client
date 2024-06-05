@@ -28,7 +28,9 @@ function Profil() {
                             {errors.password && <span className="text-error">{t('login.error.password')}</span>}
                             <Link to="/forgot-password">{t('login.forgotPassword')}</Link>
                             <div className="card-actions justify-end">
-                                <button className="btn btn-outline btn-primary">{t('login.createAccount')}</button>
+                                <Link to="/signup">
+                                    <button className="btn btn-outline btn-primary">{t('login.createAccount')}</button>
+                                </Link>
                                 <button className="btn btn-primary">{t('login.actionButton')}</button>
                             </div>
                         </form>

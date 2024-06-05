@@ -13,5 +13,7 @@
   "login.createAccount" : "Créer un compte",
   "login.forgotPassword" : "Mot de passe oublié ?",
   "login.error.login" : "Votre email est requis",
-  "login.error.password" : "Votre mot de passe est requis"
+  "login.error.password" : "Votre mot de passe est requis",
+  "login.error.name" : "Votre nom est requis",
+  "login.error.firstname" : "Votre prénom est requis"
 }
