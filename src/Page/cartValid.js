@@ -104,7 +104,7 @@ function CartValid() {
                             </div>
                             <div className="flex justify-center items-center mt-4">
                                 <Link to="/cart-payment">
-                                    <button className="btn btn-primary">Payer</button>
+                                    <button className="btn btn-primary">Suivant</button>
                                 </Link>
                             </div>
                         </div>

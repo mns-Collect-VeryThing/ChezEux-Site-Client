@@ -15,6 +15,8 @@ import SignUp from "./Page/signup";
 import ForgotPassword from "./Page/forgotPassword";
 import Contact from "./Page/contact";
 import CartValid from "./Page/cartValid";
+import CartPayment from "./Page/cartPayment";
+import CartConfirm from "./Page/cartConfirm";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +32,9 @@ root.render(
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart-valid" element={<CartValid />} />
+            <Route path="/cart-payment" element={<CartPayment />} />
+            <Route path="/cart-confirm" element={<CartConfirm />} />
+
             <Route path="/product/:productId" element={<Product />} />
         </Routes>
     </BrowserRouter>
