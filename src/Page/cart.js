@@ -118,9 +118,10 @@ function Cart() {
                                 <p className="text-xl text-gray-800">${calculateTotal()}</p>
                             </div>
                             <div className="flex justify-center items-center mt-4">
-                                <button className="btn btn-primary">Payer</button>
+                                <Link to="/cart-valid">
+                                    <button className="btn btn-primary">Suivant</button>
+                                </Link>
                             </div>
-
                         </div>
                     </div>
                 </div>
