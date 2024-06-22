@@ -8,6 +8,7 @@
   "header.contact" : "Contact",
   "login.title" : "Se connecter",
   "login.mail" : "Adresse mail",
+  "login.message" : "Message",
   "login.password" : "Mot de passe",
   "login.actionButton" : "Connexion",
   "login.createAccount" : "Créer un compte",
@@ -15,5 +16,6 @@
   "login.error.login" : "Votre email est requis",
   "login.error.password" : "Votre mot de passe est requis",
   "login.error.name" : "Votre nom est requis",
-  "login.error.firstname" : "Votre prénom est requis"
+  "login.error.firstname" : "Votre prénom est requis",
+  "login.error.message" : "Un message est requis"
 }

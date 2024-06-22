@@ -13,6 +13,7 @@ import Cart from "./Page/cart";
 import Shop from "./Page/shop";
 import SignUp from "./Page/signup";
 import ForgotPassword from "./Page/forgotPassword";
+import Contact from "./Page/contact";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,6 +25,7 @@ root.render(
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/contact" element={<Contact />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/product/:productId" element={<Product />} />
