@@ -18,6 +18,8 @@ import CartValid from "./Page/cartValid";
 import CartPayment from "./Page/cartPayment";
 import CartConfirm from "./Page/cartConfirm";
 import Faq from "./Page/faq";
+import Myorder from "./Page/myorder";
+import OrderDetail from "./Page/orderDetail";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -36,6 +38,8 @@ root.render(
             <Route path="/cart-payment" element={<CartPayment />} />
             <Route path="/cart-confirm" element={<CartConfirm />} />
             <Route path="/faq" element={<Faq />} />
+            <Route path="/my-order" element={<Myorder />} />
+            <Route path="/order/:orderId" element={<OrderDetail />} />
 
             <Route path="/product/:productId" element={<Product />} />
         </Routes>
