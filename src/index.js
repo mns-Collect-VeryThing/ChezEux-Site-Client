@@ -40,8 +40,8 @@ root.render(
             <Route path="/faq" element={<Faq />} />
             <Route path="/my-order" element={<Myorder />} />
             <Route path="/order/:orderId" element={<OrderDetail />} />
-
             <Route path="/product/:productId" element={<Product />} />
+            <Route path="*" element={<Index />} />
         </Routes>
     </BrowserRouter>
 );
