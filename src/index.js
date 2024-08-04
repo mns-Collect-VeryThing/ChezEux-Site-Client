@@ -20,6 +20,7 @@ import CartConfirm from "./Page/cartConfirm";
 import Faq from "./Page/faq";
 import Myorder from "./Page/myorder";
 import OrderDetail from "./Page/orderDetail";
+import About from "./Page/about";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -41,6 +42,7 @@ root.render(
             <Route path="/my-order" element={<Myorder />} />
             <Route path="/order/:orderId" element={<OrderDetail />} />
             <Route path="/product/:productId" element={<Product />} />
+            <Route path="/about" element={<About />} />
             <Route path="*" element={<Index />} />
         </Routes>
     </BrowserRouter>
