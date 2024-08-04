@@ -28,7 +28,7 @@ function ProductCard(props) {
     return (
         <div className="card bg-base-100 shadow-xl cursor-pointer" onClick={goToProductPage}>
             <figure><img
-                src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+                src="https://via.placeholder.com/350x200"
                 alt={ props.name }/></figure>
             <div className="card-body">
                 <h2 className="card-title">{props.name}</h2>
