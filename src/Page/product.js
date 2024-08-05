@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../Component/header";
 import Footer from "../Component/footer";
-import {Link, useParams} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {t} from "i18next";
 import { useForm } from "react-hook-form"
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
@@ -14,6 +14,8 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import {toast, Toaster} from "react-hot-toast";
 import PrimaryCard from "../Component/HomeCard/primaryCard";
+import {getProduct, getProducts} from "../service/productService";
+import Loading from "./loading";
 function Product() {
 
     const {
@@ -26,13 +28,13 @@ function Product() {
 
     const { productId } = useParams();
 
-    const product = {
-        id: productId,
-        name: "Nom du produit",
-        description: "Description du produit",
-        price: "$99.99",
-        imageUrl: "https://via.placeholder.com/500",
-    };
+    // const product = {
+    //     id: productId,
+    //     name: "Nom du produit",
+    //     description: "Description du produit",
+    //     price: "$99.99",
+    //     imageUrl: "https://via.placeholder.com/500",
+    // };
 
     const [selectedColor, setSelectedColor] = useState(null);
 
@@ -43,6 +45,33 @@ function Product() {
     const addProduct = () => {
         toast.success('Produit ajouter en taille ' + selectedColor);
     }
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [product, setProduct] = useState([]);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const data = await getProduct();
+                setProduct(data[0]);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchOrders().then();
+    }, []);
+
+    if (loading) {
+        return <Loading/>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
 
     return (
         <>
@@ -61,20 +90,20 @@ function Product() {
                                     navigation
                                     pagination={{clickable: true}}
                                 >
-                                    <SwiperSlide><img src={product.imageUrl} alt={product.name}
+                                    <SwiperSlide><img src={product.image} alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.imageUrl} alt={product.name}
+                                    <SwiperSlide><img src={product.image} alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.imageUrl} alt={product.name}
+                                    <SwiperSlide><img src={product.image} alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.imageUrl} alt={product.name}
+                                    <SwiperSlide><img src={product.image} alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
                                 </Swiper>
                             </div>
                             <div className="p-4">
                                 <div className="text-2xl font-bold text-gray-800 mb-4">{product.name}</div>
                                 <div className="text-lg text-gray-600 mb-4">{product.description}</div>
-                                <div className="text-xl font-bold text-gray-800 mb-4">{product.price}</div>
+                                <div className="text-xl font-bold text-gray-800 mb-4">{product.price} €</div>
                                 <div className="rating rating-half mb-4">
                                     <input type="radio" name="rating-10" className="rating-hidden"/>
                                     <input type="radio" name="rating-10" disabled

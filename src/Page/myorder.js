@@ -1,44 +1,45 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../Component/header";
 import Footer from "../Component/footer";
 import {Link, useNavigate} from "react-router-dom";
 import {t} from "i18next";
 import { useForm } from "react-hook-form"
+import {getOrders} from "../service/orderService";
+import Loading from "./loading";
 function Myorder() {
 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [orders, setOrders] = useState([]);
 
-    const [orders, setOrders] = useState([
-        {
-            id: 1,
-            status: 'récente', // statut de la commande
-            products: [
-                { id: 1, name: "Produit 1", price: 19.99, quantity: 1 },
-                { id: 2, name: "Produit 2", price: 24.99, quantity: 2 }
-            ]
-        },
-        {
-            id: 2,
-            status: 'livrée', // statut de la commande
-            products: [
-                { id: 3, name: "Produit 3", price: 15.99, quantity: 1 },
-                { id: 4, name: "Produit 4", price: 9.99, quantity: 3 }
-            ]
-        },
-        {
-            id: 3,
-            status: 'récente', // statut de la commande
-            products: [
-                { id: 5, name: "Produit 5", price: 29.99, quantity: 1 },
-                { id: 6, name: "Produit 6", price: 39.99, quantity: 1 }
-            ]
-        }
-    ]);
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const data = await getOrders();
+                setOrders(data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchOrders().then();
+    }, []);
 
     const navigate = useNavigate();
 
     const handleCardClick = (id) => {
         navigate(`/order/${id}`);
     };
+
+
+    if (loading) {
+        return <Loading/>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
         <>
@@ -60,9 +61,9 @@ function Myorder() {
                                         </p>
                                         <ul className="list-disc pl-5 mt-2">
                                             {order.products.map(product => (
-                                                <li key={product.id}>
-                                                    {product.name} - ${product.price.toFixed(2)} x {product.quantity}
-                                                </li>
+                                                // <li key={product.id}>
+                                                    {/*{product.name} - ${product.price.toFixed(2)} x {product.quantity}*/}
+                                                // </li>
                                             ))}
                                         </ul>
                                     </div>

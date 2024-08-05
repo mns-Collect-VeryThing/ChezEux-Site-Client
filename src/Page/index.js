@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../Component/header";
 import Carousel from "../Component/carousel";
 import CarouselCard from "../Component/carouselCard";
@@ -6,13 +6,42 @@ import Footer from "../Component/footer";
 import { useTranslation } from 'react-i18next';
 import PrimaryCard from "../Component/HomeCard/primaryCard";
 import ProductCard from "../Component/productCard";
+import {getProduct, getProducts} from "../service/productService";
+import Loading from "./loading";
 function Index() {
     const { t } = useTranslation();
+
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        const fetchOrders = async () => {
+            try {
+                const data = await getProducts();
+                setProducts(data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchOrders().then();
+    }, []);
+
+    if (loading) {
+        return <Loading/>;
+    }
+
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
+
     return (
         <>
             <Header />
             <div className="min-h-screen">
-                <div className="bg-cover bg-center h-96 flex items-center justify-center" style={{ backgroundImage: 'url(https://via.placeholder.com/1920x500)' }}>
+                <div className="bg-cover bg-center h-96 flex items-center justify-center" style={{ backgroundImage: 'url(/mountain.png)' }}>
                     <div className="text-center text-white">
                         <h1 className="text-5xl font-bold">Bienvenue sur [Nom de votre site e-commerce]</h1>
                         <p className="mt-4 text-xl">Découvrez nos produits de haute qualité</p>
@@ -23,10 +52,9 @@ function Index() {
                 <div className="py-12 bg-gray-100">
                     <h2 className="text-4xl font-bold text-center mb-8">Nos Produits</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 container mx-auto px-6">
-                        {/* Exemple de produit */}
-                        <ProductCard id={1} name="toto" price={3} />
-                        <ProductCard id={2} name="toto" price={3} />
-                        {/* Répétez ce bloc pour chaque produit */}
+                        {products.slice(0, 4).map(product => (
+                            <ProductCard id={product.id} product={product} />
+                        ))}
                     </div>
                 </div>
 

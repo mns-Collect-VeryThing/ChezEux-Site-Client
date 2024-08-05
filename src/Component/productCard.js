@@ -28,11 +28,10 @@ function ProductCard(props) {
     return (
         <div className="card bg-base-100 shadow-xl cursor-pointer" onClick={goToProductPage}>
             <figure><img
-                src="https://via.placeholder.com/350x200"
-                alt={ props.name }/></figure>
+                src={ props.product.image }
+                alt={ props.product.name }/></figure>
             <div className="card-body">
-                <h2 className="card-title">{props.name}</h2>
-                <p>If a dog chews shoes whose shoes does he choose?</p>
+                <h2 className="card-title">{props.product.name}</h2>
                 <div className="card-actions justify-end">
                     <button
                         className="btn btn-base-100 w-full btn-outline"
@@ -40,7 +39,7 @@ function ProductCard(props) {
                         onMouseLeave={handleMouseLeave}
                         onClick={addProduct}
                     >
-                        {isHovered ? <FaCartArrowDown /> : <div>{props.price} €</div>}
+                        {isHovered ? <FaCartArrowDown /> : <div>{props.product.price} €</div>}
                     </button>
                 </div>
             </div>
