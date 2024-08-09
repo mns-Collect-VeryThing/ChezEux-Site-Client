@@ -8,6 +8,7 @@ import PrimaryCard from "../Component/HomeCard/primaryCard";
 import ProductCard from "../Component/productCard";
 import {getProduct, getProducts} from "../service/productService";
 import Loading from "./loading";
+import {Link} from "react-router-dom";
 function Index() {
     const { t } = useTranslation();
 
@@ -18,8 +19,8 @@ function Index() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const data = await getProducts();
-                setProducts(data);
+                // const data = await getProducts();
+                // setProducts(data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -43,9 +44,9 @@ function Index() {
             <div className="min-h-screen">
                 <div className="bg-cover bg-center h-96 flex items-center justify-center" style={{ backgroundImage: 'url(/mountain.png)' }}>
                     <div className="text-center text-white">
-                        <h1 className="text-5xl font-bold">Bienvenue sur [Nom de votre site e-commerce]</h1>
-                        <p className="mt-4 text-xl">Découvrez nos produits de haute qualité</p>
-                        <button className="btn btn-primary mt-6">Shop Now</button>
+                        <h1 className="text-5xl font-bold">Bienvenue sur {t('shop.name')}</h1>
+                        <p className="mt-4 text-xl">{t('index.hook')}</p>
+                        <Link to="/shop"><button className="btn btn-primary mt-6">{t('index.hook.button')}</button></Link>
                     </div>
                 </div>
 
@@ -60,7 +61,7 @@ function Index() {
 
                 <div className="py-12 bg-white">
                     <div className="container mx-auto px-6 text-center">
-                        <h2 className="text-4xl font-bold mb-8">Pourquoi Choisir [Nom de votre site e-commerce] ?</h2>
+                        <h2 className="text-4xl font-bold mb-8">Pourquoi Choisir {t('shop.name')} ?</h2>
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                             <div className="bg-gray-100 p-6 rounded-lg shadow-md">
                                 <h3 className="text-2xl font-bold mb-4">Sécurité</h3>

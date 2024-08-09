@@ -25,7 +25,7 @@ function Header() {
                         <li><Link to="/profil"><AiOutlineUser/></Link></li>
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost text-xl">Shoes&Co</Link>
+                <Link to="/" className="btn btn-ghost text-xl">{t('shop.name')}</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
