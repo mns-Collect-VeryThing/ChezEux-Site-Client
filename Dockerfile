@@ -19,9 +19,13 @@ RUN chmod +x /app/modify-tailwind-config.sh
 
 # Définir un argument de build pour le thème
 ARG THEME
+ARG LANG
 
 # Utiliser l'argument pour modifier le fichier tailwind.config.js
 RUN /app/modify-tailwind-config.sh $THEME
+
+# Renommer et déplacer le fichier de traduction
+RUN cp /app/public/locales/$LANG.json /app/src/i18n/fr.json
 
 # Compiler l'application React
 RUN npm run build

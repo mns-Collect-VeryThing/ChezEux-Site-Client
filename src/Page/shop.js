@@ -20,8 +20,8 @@ function Shop() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const data = await getProducts();
-                setProducts(data);
+                // const data = await getProducts();
+                // setProducts(data);
             } catch (error) {
                 setError(error.message);
             } finally {
