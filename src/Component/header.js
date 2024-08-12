@@ -1,9 +1,11 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import {useTranslation} from "react-i18next";
-import {AiOutlineShoppingCart, AiOutlineUser} from "react-icons/ai";
+import {AiOutlineClose, AiOutlineFullscreenExit, AiOutlineShoppingCart, AiOutlineUser} from "react-icons/ai";
+import {t} from "i18next";
 function Header() {
     const { t } = useTranslation();
+    const token = localStorage.getItem('token');
 
     return (
         <div className="navbar bg-base-100">
@@ -32,8 +34,15 @@ function Header() {
                     <li><Link to="/about">{t('header.about')}</Link></li>
                     <li><Link to="/shop">{t('header.shop')}</Link></li>
                     <li><Link to="/contact">{t('header.contact')}</Link></li>
-                    <li><Link to="/cart"><AiOutlineShoppingCart/></Link></li>
-                    <li><Link to="/profil"><AiOutlineUser/></Link></li>
+                    {token ? (
+                        <>
+                            <li><Link to="/cart"><AiOutlineShoppingCart/></Link></li>
+                            <li><Link to="/profil"><AiOutlineUser/></Link></li>
+                            <li><Link to="/logout"><AiOutlineClose/></Link></li>
+                        </>
+                        ) : (
+                     <li><Link to="/login"><AiOutlineUser/></Link></li>
+                    )}
                 </ul>
             </div>
             <div className="navbar-end" />

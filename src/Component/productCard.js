@@ -28,7 +28,7 @@ function ProductCard(props) {
     return (
         <div className="card bg-base-100 shadow-xl cursor-pointer" onClick={goToProductPage}>
             <figure><img
-                src={ props.product.image }
+                src="https://placehold.co/400"
                 alt={ props.product.name }/></figure>
             <div className="card-body">
                 <h2 className="card-title">{props.product.name}</h2>

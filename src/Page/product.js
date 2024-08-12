@@ -16,6 +16,8 @@ import {toast, Toaster} from "react-hot-toast";
 import PrimaryCard from "../Component/HomeCard/primaryCard";
 import {getProduct, getProducts} from "../service/productService";
 import Loading from "./loading";
+import {addToCart} from "../service/cartService";
+import {jwtDecode} from "jwt-decode";
 function Product() {
 
     const {
@@ -28,22 +30,22 @@ function Product() {
 
     const { productId } = useParams();
 
-    // const product = {
-    //     id: productId,
-    //     name: "Nom du produit",
-    //     description: "Description du produit",
-    //     price: "$99.99",
-    //     imageUrl: "https://via.placeholder.com/500",
-    // };
-
     const [selectedColor, setSelectedColor] = useState(null);
 
-    const handleSizeChange = (e) => {
-        setSelectedColor(e.target.value)
-    };
+    // const handleSizeChange = (e) => {
+    //     setSelectedColor(e.target.value)
+    // };
 
     const addProduct = () => {
-        toast.success('Produit ajouter en taille ' + selectedColor);
+        const token = localStorage.getItem('token');
+        if (token === null) {
+            toast.error('Veuillez vous connecter');
+        } else {
+            const decodedToken = jwtDecode(token);
+            console.log(decodedToken)
+            const data = addToCart(decodedToken.username, productId);
+            toast.success('Produit ajouter au panier');
+        }
     }
 
     const [loading, setLoading] = useState(true);
@@ -53,8 +55,8 @@ function Product() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const data = await getProduct();
-                setProduct(data[0]);
+                const data = await getProduct(productId);
+                setProduct(data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -72,12 +74,10 @@ function Product() {
         return <div>Error: {error}</div>;
     }
 
-
     return (
         <>
             <Header/>
             <Toaster/>
-
             <div className="mx-auto min-h-screen">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -90,13 +90,13 @@ function Product() {
                                     navigation
                                     pagination={{clickable: true}}
                                 >
-                                    <SwiperSlide><img src={product.image} alt={product.name}
+                                    <SwiperSlide><img src="https://placehold.co/400" alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.image} alt={product.name}
+                                    <SwiperSlide><img src="https://placehold.co/400" alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.image} alt={product.name}
+                                    <SwiperSlide><img src="https://placehold.co/400" alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
-                                    <SwiperSlide><img src={product.image} alt={product.name}
+                                    <SwiperSlide><img src="https://placehold.co/400" alt={product.name}
                                                       className="w-full h-auto"/></SwiperSlide>
                                 </Swiper>
                             </div>
@@ -128,13 +128,13 @@ function Product() {
                                            className="bg-primary mask mask-star-2 mask-half-2"/>
                                 </div>
                                 <div className="mb-4">
-                                    <select className="select select-bordered" onChange={handleSizeChange}>
-                                        <option disabled selected>Selectionner une taille</option>
-                                        <option>S</option>
-                                        <option>M</option>
-                                        <option>L</option>
-                                        <option>Xl</option>
-                                    </select>
+                                {/*    <select className="select select-bordered" onChange={handleSizeChange}>*/}
+                                {/*        <option disabled selected>Selectionner une taille</option>*/}
+                                {/*        <option>S</option>*/}
+                                {/*        <option>M</option>*/}
+                                {/*        <option>L</option>*/}
+                                {/*        <option>Xl</option>*/}
+                                {/*    </select>*/}
                                 </div>
                                 <button className="btn btn-primary" onClick={() => {
                                     addProduct()

@@ -12,7 +12,6 @@ import {useNavigate} from "react-router-dom";
 import Loading from "./loading";
 import {getProducts} from "../service/productService";
 function Shop() {
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [products, setProducts] = useState([]);
@@ -20,8 +19,8 @@ function Shop() {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                // const data = await getProducts();
-                // setProducts(data);
+                const data = await getProducts();
+                setProducts(data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -31,12 +30,12 @@ function Shop() {
         fetchOrders().then();
     }, []);
 
+
     const navigate = useNavigate();
 
     const handleCardClick = (id) => {
         navigate(`/order/${id}`);
     };
-
 
     if (loading) {
         return <Loading/>;
@@ -45,8 +44,6 @@ function Shop() {
     if (error) {
         return <div>Error: {error}</div>;
     }
-
-    console.log(products);
 
     return (
         <>
@@ -59,7 +56,7 @@ function Shop() {
                     <div className="mx-auto min-h-screen">
                         <div className="max-w-7xl mx-auto px-4 md:px-8">
                             <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Filtrer</label>
-                            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
                                 {products.map(product => (
                                     <ProductCard id={product.id} product={product} />
                                 ))}

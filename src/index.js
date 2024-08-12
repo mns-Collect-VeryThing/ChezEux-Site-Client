@@ -21,6 +21,7 @@ import Faq from "./Page/faq";
 import Myorder from "./Page/myorder";
 import OrderDetail from "./Page/orderDetail";
 import About from "./Page/about";
+import Logout from "./Page/logout";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +31,7 @@ root.render(
             <Route path="/tools" element={<Tools />} />
             <Route path="/profil" element={<Profil />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/contact" element={<Contact />} />

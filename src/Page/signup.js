@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Header from "../Component/header";
 import Footer from "../Component/footer";
 import {Link} from "react-router-dom";
 import {t} from "i18next";
 import { useForm } from "react-hook-form"
 import {AiOutlineShoppingCart} from "react-icons/ai";
+import {postLogin, postSignUp} from "../service/userService";
+import {toast, Toaster} from "react-hot-toast";
 function SignUp() {
 
     const {
@@ -13,28 +15,36 @@ function SignUp() {
         formState: { errors },
     } = useForm()
 
-    const onSubmit = (data) => console.log(data)
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const submitForm = async (e) => {
+        setLoading(true)
+        const response = await postSignUp(e);
+        console.log(response)
+        if (response.status === 201) {
+            toast.success('Compte créer avec succès');
+            window.location.href = '/login'
+        } else {
+            setLoading(false);
+            toast.error('Invalid login credentials. Please try again.');
+        }
+    }
 
     return (
         <>
+            <Toaster/>
             <Header/>
             <div>
                 <div className="min-h-screen">
                     <div className="card w-96 bg-base-100 shadow-xl m-auto mt-48">
-                        <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-                            <h2 className="card-title">Votre identité</h2>
+                        <form className="card-body" onSubmit={handleSubmit(submitForm)}>
 
-                            <input {...register("name", {required: true})} type="text" placeholder={'nom'}
-                                   className="input input-bordered input-primary w-full max-w-xs"/>
-                            {errors.name && <span className="text-error">{t('login.error.name')}</span>}
-
-                            <input {...register("firstname", {required: true})} type="text" placeholder={'Prénom'}
-                                   className="input input-bordered input-primary w-full max-w-xs"/>
                             {errors.firstname && <span className="text-error">{t('login.error.firstname')}</span>}
                             <h2 className="card-title">Vos informations</h2>
-                            <input {...register("mail", {required: true})} type="text" placeholder={t('login.mail')}
+                            <input {...register("email", {required: true})} type="text" placeholder={t('login.email')}
                                    className="input input-bordered input-primary w-full max-w-xs"/>
-                            {errors.mail && <span className="text-error">{t('login.error.login')}</span>}
+                            {errors.email && <span className="text-error">{t('login.error.login')}</span>}
 
                             <input {...register("password", {required: true})} type="password"
                                    placeholder={t('login.password')}
