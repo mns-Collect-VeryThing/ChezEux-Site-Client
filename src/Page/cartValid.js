@@ -79,7 +79,6 @@ function CartValid() {
         }
     };
 
-    // console.log(addresses)
 
     return (
         <>
@@ -115,6 +114,16 @@ function CartValid() {
                         <div className="border-2 border-primary md:h-min rounded-lg p-4 mt-8">
                             <h2 className="text-3xl font-semibold mb-4">Adresse de livraison</h2>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                                <div className="grid grid-cols-2 gap-4">
+                                    <input {...register("delivery.firstname", {required: true})} type="text"
+                                           placeholder={"John"}
+                                           className="input input-bordered input-primary w-full "/>
+                                    {errors.mail && <span className="text-error">aze{t('login.error.firstname')}</span>}
+                                    <input {...register("delivery.lastname", {required: true})} type="text"
+                                           placeholder={"Doe"}
+                                           className="input input-bordered input-primary w-full "/>
+                                    {errors.mail && <span className="text-error">{t('login.error.lastname')}</span>}
+                                </div>
                                 <input {...register("delivery.street", {required: true})} type="text"
                                        placeholder={"Adresse"}
                                        className="input input-bordered input-primary w-full "/>
@@ -139,6 +148,18 @@ function CartValid() {
                                     </label>
                                     {useDelivery ? '' :
                                         <>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <input {...register("billing.firstname", {required: true})} type="text"
+                                                       placeholder={"John"}
+                                                       className="input input-bordered input-primary w-full "/>
+                                                {errors.mail &&
+                                                    <span className="text-error">aze{t('login.error.firstname')}</span>}
+                                                <input {...register("billing.lastname", {required: true})} type="text"
+                                                       placeholder={"Doe"}
+                                                       className="input input-bordered input-primary w-full "/>
+                                                {errors.mail &&
+                                                    <span className="text-error">{t('login.error.lastname')}</span>}
+                                            </div>
                                             <input {...register("billing.street")} type="text"
                                                    placeholder={"Adresse"}
                                                    className="input input-bordered input-primary w-full "/>
@@ -160,7 +181,7 @@ function CartValid() {
                                     }
                                 </div>
                                 <div className="flex justify-center items-center mt-4">
-                                    <input type="submit" className="btn btn-primary" value="Suivant" />
+                                    <input type="submit" className="btn btn-primary" value="Suivant"/>
                                 </div>
                             </form>
                         </div>

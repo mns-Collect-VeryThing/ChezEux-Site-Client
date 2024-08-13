@@ -91,15 +91,18 @@ function CartPayment() {
 
                             <div>
                                 <h2 className="text-xl font-semibold">Adresse de livraison</h2>
+                                <h3>{order.deliveryAddress.firstname} {order.deliveryAddress.lastname}</h3>
                                 <h3>{order.deliveryAddress.street}</h3>
                                 <h3>{order.deliveryAddress.zipcode} {order.deliveryAddress.city}</h3>
                             </div>
 
-                            <div>
-                                <h2 className="text-xl font-semibold">Adresse de facturation</h2>
-                                <h3>{order.billingAddress.street}</h3>
-                                <h3>{order.billingAddress.zipcode} {order.billingAddress.city}</h3>
-                            </div></> : null}
+                                <div>
+                                    <h2 className="text-xl font-semibold">Adresse de facturation</h2>
+                                    <h3>{order.billingAddress.firstname} {order.billingAddress.lastname}</h3>
+                                    <h3>{order.billingAddress.street}</h3>
+                                    <h3>{order.billingAddress.zipcode} {order.billingAddress.city}</h3>
+                                </div>
+                            </> : null}
 
 
                         </div>
