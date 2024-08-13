@@ -19,14 +19,6 @@ import {deleteToCart, getCart} from "../service/cartService";
 import {getOrders} from "../service/orderService";
 function Cart() {
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm()
-
-    const onSubmit = (data) => console.log(data)
-
     const addProduct = () => {
         toast.success('Produit ajouter en taille ' );
     }
@@ -36,7 +28,6 @@ function Cart() {
     const [total, setTotal] = useState(0);
 
     useEffect(() => {
-
         fetchCart().then();
     }, []);
     const token = localStorage.getItem('token');
@@ -84,7 +75,7 @@ function Cart() {
                                         <div className="flex-1">
                                             <h2 className="text-lg font-semibold">{item.name}</h2>
                                             <p className="text-gray-600">Description du produit</p>
-                                            <p className="text-gray-800 font-semibold">${item.price}</p>
+                                            <p className="text-gray-800 font-semibold">${item.price} €</p>
                                         </div>
                                         <div className="flex items-center">
                                             <button onClick={() => removeFromCart(item.id)}
@@ -94,7 +85,6 @@ function Cart() {
                                     </div>
                                 ))}
                             </div> : <div>Votre panier est vide</div>}
-
                         </div>
                         <div className="border-2 border-primary md:h-min rounded-lg p-4 mt-8">
                             <h2 className="text-xl font-semibold mb-4">Total</h2>

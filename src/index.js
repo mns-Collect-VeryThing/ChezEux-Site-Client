@@ -38,7 +38,7 @@ root.render(
             <Route path="/shop" element={<Shop />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/cart-valid" element={<CartValid />} />
-            <Route path="/cart-payment" element={<CartPayment />} />
+            <Route path="/cart-payment/:orderId" element={<CartPayment />} />
             <Route path="/cart-confirm" element={<CartConfirm />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/my-order" element={<Myorder />} />
