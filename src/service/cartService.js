@@ -6,7 +6,7 @@ const getJWT = () => {
     return localStorage.getItem('token');
 };
 
-let shop = 2;
+let shop = 1;
 
 const addToCart = async (userId, productId) => {
     try {

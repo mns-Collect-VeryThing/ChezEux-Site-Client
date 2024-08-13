@@ -26,6 +26,7 @@ function CartPayment() {
 
     const { orderId } = useParams();
     const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
 
     const [total, setTotal] = useState(0);
     const [order, setOrder] = useState(null);
@@ -50,7 +51,6 @@ function CartPayment() {
         }
     };
 
-    const decodedToken = jwtDecode(token);
 
     const confirmPayment = async () => {
         const response = await payOrder(decodedToken.username, orderId);
@@ -103,8 +103,6 @@ function CartPayment() {
                                     <h3>{order.billingAddress.zipcode} {order.billingAddress.city}</h3>
                                 </div>
                             </> : null}
-
-
                         </div>
                         <div className="border-2 border-primary md:h-min rounded-lg p-4 mt-8">
                             <h2 className="text-3xl font-semibold mb-4">Paiement</h2>

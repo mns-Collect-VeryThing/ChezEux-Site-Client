@@ -44,7 +44,7 @@ function CartConfirm() {
                     <h1 className="text-5xl font-bold text-center text-primary mt-8">Commande validé</h1>
                     <div className="mx-auto mt-8 flex items-center justify-center flex-col">
                         <div className="py-4">
-                            <Link to="/order">
+                            <Link to="/profil">
                                 <button className="btn btn-primary">Vos commandes</button>
                             </Link>
                         </div>

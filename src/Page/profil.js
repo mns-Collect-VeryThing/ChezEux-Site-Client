@@ -1,12 +1,34 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../Component/header";
 import Footer from "../Component/footer";
 import { Link } from "react-router-dom";
 import { t } from "i18next";
 import ProductCard from "../Component/productCard";
+import {getOrder, getOrdersById} from "../service/orderService";
+import {jwtDecode} from "jwt-decode";
 
 function Profil() {
-    const [activeTab, setActiveTab] = useState('profile');
+    const [activeTab, setActiveTab] = useState('orders');
+
+    const [orders, setOrders] = useState(null);
+
+    const token = localStorage.getItem('token');
+    const decodedToken = jwtDecode(token);
+
+    const fetchOrderById = async () => {
+        if (token === null) {
+            window.location.href = '/login';
+        } else {
+            const response = await getOrdersById(decodedToken.username);
+            setOrders(response.data);
+        }
+    };
+
+    useEffect(() => {
+        fetchOrderById().then();
+    }, []);
+
+    console.log(orders)
 
     const renderContent = () => {
         switch (activeTab) {
@@ -112,14 +134,15 @@ function Profil() {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {/* row 1 */}
-                                    <tr>
-                                        <td>22/09/2024</td>
-                                        <td>123456789</td>
-                                        <td>Expédié</td>
-                                        <td>9,99€</td>
-                                        <td><a className="link link-primary">Aperçu</a></td>
-                                    </tr>
+                                    {orders?.map((item) => (
+                                        <tr>
+                                            <td>{item.createdAt}</td>
+                                            <td>{item.id}</td>
+                                            <td>{item.status}</td>
+                                            <td>{item.cart.totalPrice} €</td>
+                                            <td><a className="link link-primary">Aperçu</a></td>
+                                        </tr>
+                                    ))}
                                     </tbody>
                                 </table>
                             </div>

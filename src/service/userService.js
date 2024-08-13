@@ -6,7 +6,7 @@ const getJWT = () => {
     return localStorage.getItem('jwtToken');
 };
 
-let shop = 2;
+let shop = 1;
 
 
 const postLogin = async (data) => {

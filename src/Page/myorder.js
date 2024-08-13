@@ -12,19 +12,19 @@ function Myorder() {
     const [error, setError] = useState(null);
     const [orders, setOrders] = useState([]);
 
-    useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const data = await getOrders();
-                setOrders(data);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchOrders().then();
-    }, []);
+    // useEffect(() => {
+    //     const fetchOrders = async () => {
+    //         try {
+    //             const data = await getOrders();
+    //             setOrders(data);
+    //         } catch (error) {
+    //             setError(error.message);
+    //         } finally {
+    //             setLoading(false);
+    //         }
+    //     };
+    //     fetchOrders().then();
+    // }, []);
 
     const navigate = useNavigate();
 

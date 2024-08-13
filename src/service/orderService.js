@@ -5,18 +5,25 @@ const getJWT = () => {
     return localStorage.getItem('token');
 };
 
-let shop = 2;
+let shop = 1;
 
-
-const getOrders = async () => {
+const getOrdersById = async (userId) => {
     try {
-        const response = await axiosInstance.get('/orders');
-        return response.data;
+        let base64 = btoa(unescape(encodeURIComponent(userId)))
+
+        return await axiosInstance.get(`/private/${shop}/order/${base64}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getJWT()}`
+            },
+        });
+
     } catch (error) {
         console.error('Error fetching orders', error);
         throw error;
     }
 };
+
 const postOrder = async (userId, delivery, billing, id) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
@@ -68,4 +75,4 @@ const getOrder = async (userId, orderId) => {
     }
 };
 
-export { getOrders, postOrder, payOrder, getOrder };
+export { getOrdersById, postOrder, payOrder, getOrder };

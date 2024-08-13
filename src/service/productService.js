@@ -4,7 +4,7 @@ let shop = localStorage.getItem('shopId');
 const jwtToken = localStorage.getItem('token');
 
 const getProducts = async (data) => {
-    let shop = 2;
+    let shop = 1;
     const jwtToken = localStorage.getItem('token');
 
     try {
@@ -22,7 +22,7 @@ const getProducts = async (data) => {
 };
 
 const getProduct = async (id) => {
-    let shop = 2;
+    let shop = 1;
 
     try {
         const response =  await axiosInstance.get(`/public/${shop}/product/${id}`,  {
