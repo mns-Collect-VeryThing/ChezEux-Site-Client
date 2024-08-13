@@ -28,6 +28,12 @@ function Profil() {
         fetchOrderById().then();
     }, []);
 
+    const getDeliveryStatus = (index) => {
+        if(index === 'payed')return <div className="badge badge-primary">En attente d'expedition</div>
+        else if(index === 'send')return <div className="badge badge-secondary">Votre commande a été éxpédié</div>
+        else return <div className="badge badge-secondary">{index}</div>
+    }
+
     console.log(orders)
 
     const renderContent = () => {
@@ -138,7 +144,7 @@ function Profil() {
                                         <tr>
                                             <td>{item.createdAt}</td>
                                             <td>{item.id}</td>
-                                            <td>{item.status}</td>
+                                            <td>{getDeliveryStatus(item.status)}</td>
                                             <td>{item.cart.totalPrice} €</td>
                                             <td><a className="link link-primary">Aperçu</a></td>
                                         </tr>
