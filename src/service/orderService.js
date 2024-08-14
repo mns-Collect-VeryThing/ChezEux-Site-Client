@@ -5,13 +5,13 @@ const getJWT = () => {
     return localStorage.getItem('token');
 };
 
-let shop = 1;
+const storeId = process.env.REACT_APP_ID;
 
 const getOrdersById = async (userId) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.get(`/private/${shop}/order/${base64}`,{
+        return await axiosInstance.get(`/private/${storeId}/order/${base64}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`
@@ -28,7 +28,7 @@ const postOrder = async (userId, delivery, billing, id) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.post(`/private/${shop}/order/${base64}/new`, {
+        return await axiosInstance.post(`/private/${storeId}/order/${base64}/new`, {
             cartId: id,
             delivery: delivery,
             billing: billing
@@ -47,7 +47,7 @@ const payOrder = async (userId, orderId) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.put(`/private/${shop}/order/${base64}/${orderId}/payed`, {}, {
+        return await axiosInstance.put(`/private/${storeId}/order/${base64}/${orderId}/payed`, {}, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`
@@ -62,7 +62,7 @@ const getOrder = async (userId, orderId) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.get(`/private/${shop}/order/${base64}/${orderId}`,{
+        return await axiosInstance.get(`/private/${storeId}/order/${base64}/${orderId}`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`

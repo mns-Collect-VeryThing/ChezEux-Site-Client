@@ -6,13 +6,13 @@ const getJWT = () => {
     return localStorage.getItem('token');
 };
 
-let shop = 1;
+const storeId = process.env.REACT_APP_ID;
 
 const getAddresses = async (userId, productId) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.get(`/private/${shop}/${base64}/address`,  {
+        return await axiosInstance.get(`/private/${storeId}/${base64}/address`,  {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`
@@ -28,7 +28,7 @@ const addAddress = async (userId, data) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.post(`/private/${shop}/${base64}/address/new`, data, {
+        return await axiosInstance.post(`/private/${storeId}/${base64}/address/new`, data, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`

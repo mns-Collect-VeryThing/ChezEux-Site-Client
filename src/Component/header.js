@@ -6,6 +6,7 @@ import {t} from "i18next";
 function Header() {
     const { t } = useTranslation();
     const token = localStorage.getItem('token');
+    const name = process.env.REACT_APP_NAME;
 
     return (
         <div className="navbar bg-base-100">
@@ -27,7 +28,7 @@ function Header() {
                         <li><Link to="/profil"><AiOutlineUser/></Link></li>
                     </ul>
                 </div>
-                <Link to="/" className="btn btn-ghost text-xl">{t('shop.name')}</Link>
+                <Link to="/" className="btn btn-ghost text-xl">{name}</Link>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">

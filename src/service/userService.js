@@ -6,7 +6,7 @@ const getJWT = () => {
     return localStorage.getItem('jwtToken');
 };
 
-let shop = 1;
+const storeId = process.env.REACT_APP_ID;
 
 
 const postLogin = async (data) => {
@@ -27,7 +27,7 @@ const postLogin = async (data) => {
 
 const postSignUp = async (data) => {
     try {
-        return await axiosInstance.post(`/public/${shop}/customer/new`, data, {
+        return await axiosInstance.post(`/public/${storeId}/customer/new`, data, {
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -1,4 +1,6 @@
 #!/bin/bash
+cd /Users/bastien/PhpstormProjects/ChezEux-Site-Client
+git pull
 
 # Vérifier si les arguments nécessaires sont fournis
 if [ "$#" -ne 3 ]; then

@@ -42,6 +42,14 @@ function SignUp() {
 
                             {errors.firstname && <span className="text-error">{t('login.error.firstname')}</span>}
                             <h2 className="card-title">Vos informations</h2>
+
+                            <input {...register("firstname", {required: true})} type="text" placeholder="John"
+                                   className="input input-bordered input-primary w-full max-w-xs"/>
+                            {errors.email && <span className="text-error">{t('login.error.login')}</span>}
+                            <input {...register("lastname", {required: true})} type="text" placeholder="Doe"
+                                   className="input input-bordered input-primary w-full max-w-xs"/>
+                            {errors.email && <span className="text-error">{t('login.error.login')}</span>}
+
                             <input {...register("email", {required: true})} type="text" placeholder={t('login.email')}
                                    className="input input-bordered input-primary w-full max-w-xs"/>
                             {errors.email && <span className="text-error">{t('login.error.login')}</span>}

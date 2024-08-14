@@ -1,18 +1,17 @@
 // src/services/orderService.js
 import axiosInstance from '../config/axiosConfig';
 
-
 const getJWT = () => {
     return localStorage.getItem('token');
 };
 
-let shop = 1;
+const storeId = process.env.REACT_APP_ID;
 
 const addToCart = async (userId, productId) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.post(`/private/${shop}/${base64}/cart/add/${productId}`, [], {
+        return await axiosInstance.post(`/private/${storeId}/${base64}/cart/add/${productId}`, [], {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`
@@ -29,7 +28,7 @@ const addToCart = async (userId, productId) => {
 const deleteToCart = async (user, id) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(user)))
-        return await axiosInstance.delete(`/private/${shop}/${base64}/cart/${id}`, {
+        return await axiosInstance.delete(`/private/${storeId}/${base64}/cart/${id}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`
@@ -43,7 +42,7 @@ const deleteToCart = async (user, id) => {
 const getCart = async (user) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(user)))
-        return await axiosInstance.get(`/private/${shop}/${base64}/cart`,{
+        return await axiosInstance.get(`/private/${storeId}/${base64}/cart`,{
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`

@@ -1,14 +1,13 @@
 import axiosInstance from '../config/axiosConfig';
 
-let shop = localStorage.getItem('shopId');
 const jwtToken = localStorage.getItem('token');
+const storeId = process.env.REACT_APP_ID;
 
 const getProducts = async (data) => {
-    let shop = 1;
     const jwtToken = localStorage.getItem('token');
 
     try {
-        const response =  await axiosInstance.get(`/public/${shop}/product`,  {
+        const response =  await axiosInstance.get(`/public/${storeId}/product`,  {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -22,10 +21,9 @@ const getProducts = async (data) => {
 };
 
 const getProduct = async (id) => {
-    let shop = 1;
 
     try {
-        const response =  await axiosInstance.get(`/public/${shop}/product/${id}`,  {
+        const response =  await axiosInstance.get(`/public/${storeId}/product/${id}`,  {
             headers: {
                 'Content-Type': 'application/json',
             },
