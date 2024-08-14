@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /Users/bastien/PhpstormProjects/ChezEux-Site-Client
 
 # Vérifier si les arguments nécessaires sont fournis
 if [ "$#" -ne 5 ]; then
@@ -12,6 +13,12 @@ NAME=$2
 THEME=$3
 PORT=$4
 LANG=$5
+
+# Convertir les arguments en minuscules pour le nom de l'image
+ID=$(echo "$ID" | tr '[:upper:]' '[:lower:]')
+NAME=$(echo "$NAME" | tr '[:upper:]' '[:lower:]')
+THEME=$(echo "$THEME" | tr '[:upper:]' '[:lower:]')
+LANG=$(echo "$LANG" | tr '[:upper:]' '[:lower:]')
 
 # Fichier .env
 ENV_FILE=".env"
