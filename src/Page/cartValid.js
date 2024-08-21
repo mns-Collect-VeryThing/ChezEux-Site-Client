@@ -122,6 +122,7 @@ function CartValid() {
                             </div>
                         </div>
                         <div className="border-2 border-primary md:h-min rounded-lg p-4 mt-8">
+                            {addresses.length > 0 ? <>
                             <h2 className="text-3xl font-semibold mb-4">Adresse de livraison</h2>
                             <div className="grid grid-cols-2 gap-4">
                                 {addresses.map((item) => (
@@ -134,10 +135,14 @@ function CartValid() {
                                         </ul>
                                     </div>
                                 ))}
+
                                 <div className="flex justify-center items-center mt-4 col-span-2">
-                                    <button onClick={() => validOrder()} type="submit" className="btn btn-primary">Valider</button>
+                                    <button onClick={() => validOrder()} type="submit"
+                                            className="btn btn-primary">Valider
+                                    </button>
                                 </div>
                             </div>
+                            </> : null}
                             <h2 className="text-3xl font-semibold my-4">Nouvelle adresse de livraison</h2>
                             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                                 <div className="grid grid-cols-2 gap-4">

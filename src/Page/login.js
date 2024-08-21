@@ -55,7 +55,7 @@ function Profil() {
                             <Link to="/forgot-password">{t('login.forgotPassword')}</Link>
                             <div className="card-actions justify-end">
                                 <Link to="/signup">
-                                    <button className="btn btn-outline btn-primary">{t('login.createAccount')}</button>
+                                    <div className="btn btn-outline btn-primary">{t('login.createAccount')}</div>
                                 </Link>
                                 <button className="btn btn-primary">{t('login.actionButton')}</button>
                             </div>

@@ -7,14 +7,8 @@ function useGetWeathers () {
 
     useEffect(() => {
         weather.length=0;
-        axios.get('https://api.openweathermap.org/data/2.5/weather?lat=1&lon=1&appid=407165e99deffff1d3b70d3360f1edd0&units=metric')
-            .then((response) => {
-                setWeather(statistics => [...statistics, {name: 'Température', value: response.data.main.temp}]);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        setIsLoading(false);
+
     }, []);
 
     return {weather, isLoading};

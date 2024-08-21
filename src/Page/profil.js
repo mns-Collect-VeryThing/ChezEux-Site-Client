@@ -6,6 +6,7 @@ import { t } from "i18next";
 import ProductCard from "../Component/productCard";
 import {getOrder, getOrdersById} from "../service/orderService";
 import {jwtDecode} from "jwt-decode";
+import {getAddresses} from "../service/addressesService";
 
 function Profil() {
     const [activeTab, setActiveTab] = useState('orders');
@@ -34,91 +35,39 @@ function Profil() {
         else return <div className="badge badge-secondary">{index}</div>
     }
 
-    console.log(orders)
+    const [addresses, setAddresses] = useState([]);
 
+    const fetchAdress = async () => {
+        const response = await getAddresses(decodedToken.username);
+        setAddresses(response.data);
+    };
+
+    useEffect(() => {
+        fetchAdress().then();
+    }, []);
     const renderContent = () => {
         switch (activeTab) {
             case 'profile':
                 return <div>
                     <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>
                         <div className=" md:col-span-3 pr-8">
-                            <div className="flex items-center mb-4" style={{justifyContent: "space-between"}}>
-                                <h1 className="text-3xl font-semibold mb-4">Mon Panier</h1>
-                                <div className="flex items-center">
-                                    <input type="number" className="form-input w-16"/>
-                                    <button
-                                        className="btn btn-outline btn-primary ml-4">Modifier
-                                    </button>
+                            <div className="items-center mb-4">
+                                <div>
+                                    <h1 className="text-3xl font-semibold mb-4">Mes addresses</h1>
+                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                {addresses.map((item) => (
+                                        <div key={item.id}
+                                             className={`flex justify-between border-2 rounded-lg p-4 border-primary`}>
+                                            <ul>
+                                                <li>{item.firstname} {item.lastname}</li>
+                                                <li>{item.street} {item.lastname}</li>
+                                                <li>{item.city} {item.zipcode}</li>
+                                            </ul>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="flex-1">
-                                <h2 className="text-lg font-semibold"></h2>
-                                <p className="text-gray-600">Date d'inscription</p>
-                                <p className="text-gray-800 font-semibold"></p>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="input1" className="label">Label 1</label>
-                                        <input type="text" id="input1" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input2" className="label">Label 2</label>
-                                        <input type="text" id="input2" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input3" className="label">Label 3</label>
-                                        <input type="text" id="input3" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input4" className="label">Label 4</label>
-                                        <input type="text" id="input4" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>
-                        <div className=" md:col-span-3 pr-8">
-                            <div className="flex items-center mb-4" style={{justifyContent: "space-between"}}>
-                                <h1 className="text-3xl font-semibold mb-4">Adresse</h1>
-                                <div className="flex items-center">
-                                    <input type="number" className="form-input w-16"/>
-                                    <button
-                                        className="btn btn-outline btn-primary ml-4">Modifier
-                                    </button>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                                    <div>
-                                        <label htmlFor="input1" className="label">Label 1</label>
-                                        <input type="text" id="input1" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input2" className="label">Label 2</label>
-                                        <input type="text" id="input2" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input3" className="label">Label 3</label>
-                                        <input type="text" id="input3" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                    <div>
-                                        <label htmlFor="input4" className="label">Label 4</label>
-                                        <input type="text" id="input4" placeholder="test"
-                                               className="input input-bordered input-primary w-full"/>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>;
@@ -155,45 +104,45 @@ function Profil() {
                         </div>
                     </div>
                 </div>;
-            case 'payment':
-                return <div>
-                    <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>
-                        <div className=" md:col-span-3 pr-8">
-                            <div className="overflow-x-auto">
-                                <h1 className="text-3xl font-semibold mb-4">Mes informations de paiement</h1>
-                                <hr/>
-                                <div style={{
-                                    width: '100%',
-                                    height: '200px',
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    alignItems: 'center',
-                                    flexDirection: 'column'
-                                }}>
-                                    <span>Vous n'avez pas encore enregistré de carte</span>
-                                    <a className="link">Ajouter une nouvelle carte</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>;
-            case 'favorites':
-                return <div>
-                    <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>
-                        <div className=" md:col-span-3 pr-8">
-                            <h1 className="text-3xl font-semibold mb-4">Mes favoris</h1>
-                            <hr/>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <ProductCard id={1} name="toto" price={3}/>
-                                <ProductCard id={1} name="toto" price={3}/>
-                                <ProductCard id={1} name="toto" price={3}/>
-                                <ProductCard id={1} name="toto" price={3}/>
-                                <ProductCard id={1} name="toto" price={3}/>
-                                <ProductCard id={1} name="toto" price={13.99}/>
-                                <ProductCard id={1} name="toto" price={3}/>
-                            </div>
-                        </div>
-                    </div>
-                </div>;
+            {/*case 'payment':*/}
+            {/*    return <div>*/}
+            {/*        <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>*/}
+            {/*            <div className=" md:col-span-3 pr-8">*/}
+            {/*                <div className="overflow-x-auto">*/}
+            {/*                    <h1 className="text-3xl font-semibold mb-4">Mes informations de paiement</h1>*/}
+            {/*                    <hr/>*/}
+            {/*                    <div style={{*/}
+            {/*                        width: '100%',*/}
+            {/*                        height: '200px',*/}
+            {/*                        display: 'flex',*/}
+            {/*                        justifyContent: 'center',*/}
+            {/*                        alignItems: 'center',*/}
+            {/*                        flexDirection: 'column'*/}
+            {/*                    }}>*/}
+            {/*                        <span>Vous n'avez pas encore enregistré de carte</span>*/}
+            {/*                        <a className="link">Ajouter une nouvelle carte</a></div>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>;*/}
+            {/*case 'favorites':*/}
+            {/*    return <div>*/}
+            {/*        <div className="border-2 shadow-xl md:h-min rounded-lg p-12 mt-8 w-auto" style={{width: '900px'}}>*/}
+            {/*            <div className=" md:col-span-3 pr-8">*/}
+            {/*                <h1 className="text-3xl font-semibold mb-4">Mes favoris</h1>*/}
+            {/*                <hr/>*/}
+            {/*                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={13.99}/>*/}
+            {/*                    <ProductCard id={1} name="toto" price={3}/>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>;*/}
         }
     };
 
@@ -222,18 +171,18 @@ function Profil() {
                                         Mes commandes
                                     </button>
                                 </div>
-                                <div className="flex justify-between">
-                                    <button onClick={() => setActiveTab('payment')}
-                                            className={`text-gray-800 ${activeTab === 'payment' ? 'font-bold' : ''}`}>
-                                        Mes informations de paiement
-                                    </button>
-                                </div>
-                                <div className="flex justify-between">
-                                    <button onClick={() => setActiveTab('favorites')}
-                                            className={`text-gray-800 ${activeTab === 'favorites' ? 'font-bold' : ''}`}>
-                                        Mes favoris
-                                    </button>
-                                </div>
+                                {/*<div className="flex justify-between">*/}
+                                {/*    <button onClick={() => setActiveTab('payment')}*/}
+                                {/*            className={`text-gray-800 ${activeTab === 'payment' ? 'font-bold' : ''}`}>*/}
+                                {/*        Mes informations de paiement*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
+                                {/*<div className="flex justify-between">*/}
+                                {/*    <button onClick={() => setActiveTab('favorites')}*/}
+                                {/*            className={`text-gray-800 ${activeTab === 'favorites' ? 'font-bold' : ''}`}>*/}
+                                {/*        Mes favoris*/}
+                                {/*    </button>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
                         <div>

@@ -113,9 +113,15 @@ function Cart() {
                                 <p className="text-xl text-gray-800">{total}</p>
                             </div>
                             <div className="flex justify-center items-center mt-4">
-                                <Link to="/cart-valid">
-                                    <button className="btn btn-primary">Suivant</button>
-                                </Link>
+                                {
+                                    cartData ? (
+                                        <Link to="/cart-valid">
+                                            <button className="btn btn-primary">Suivant</button>
+                                        </Link>
+                                    ): (
+                                        <button className="btn btn-primary btn-disabled">Suivant</button>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
