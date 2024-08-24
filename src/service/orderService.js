@@ -43,11 +43,13 @@ const postOrder = async (userId, delivery, billing, id) => {
     }
 };
 
-const payOrder = async (userId, orderId) => {
+const payOrder = async (userId, orderId, paymentIntent) => {
     try {
         let base64 = btoa(unescape(encodeURIComponent(userId)))
 
-        return await axiosInstance.put(`/private/${storeId}/order/${base64}/${orderId}/payed`, {}, {
+        return await axiosInstance.put(`/private/${storeId}/order/${base64}/${orderId}/payed`, {
+            'stripeIntent': paymentIntent
+        }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${getJWT()}`

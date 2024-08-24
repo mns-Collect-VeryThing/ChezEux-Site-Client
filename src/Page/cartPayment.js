@@ -14,15 +14,46 @@ import {toast, Toaster} from "react-hot-toast";
 import PrimaryCard from "../Component/HomeCard/primaryCard";
 import {getCart} from "../service/cartService";
 import {jwtDecode} from "jwt-decode";
-import {getOrder, payOrder} from "../service/orderService";
+import {createStripePayment, getOrder, payOrder, postOrder} from "../service/orderService";
+import {CardElement, useElements, useStripe} from "@stripe/react-stripe-js";
 
 function CartPayment() {
 
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const stripe = useStripe();
+    const elements = useElements();
+    const [paymentStatus, setPaymentStatus] = useState('');
+
+    const [clientSecret, setClientSecret] = useState('');
+
+    useEffect(async () => {
+
+    }, []);
+
+    console.log(clientSecret);
+
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
+            clientSecret, // Obtenu via votre backend Symfony
+            {
+                payment_method: {
+                    card: elements.getElement(CardElement),
+                },
+            }
+        );
+
+        if (error) {
+            setPaymentStatus('Payment failed: ' + error.message);
+        } else if (paymentIntent.status === 'succeeded') {
+            setPaymentStatus('Payment succeeded!');
+            const response = await payOrder(decodedToken.username, orderId, paymentIntent.id);
+            if (response.status === 200) {
+                window.location.href = '/cart-confirm';
+            }
+        }
+    };
 
     const { orderId } = useParams();
     const token = localStorage.getItem('token');
@@ -35,12 +66,16 @@ function CartPayment() {
         fetchOrder().then();
     }, []);
 
+
+
     const fetchOrder = async () => {
         if (token === null) {
             window.location.href = '/login';
         } else {
             const response = await getOrder(decodedToken.username, orderId);
             setOrder(response.data);
+            console.log(response.data)
+            setClientSecret(response.data.stripePaymentIntent	)
 
             setTotal(0);
             let total = 0
@@ -51,13 +86,6 @@ function CartPayment() {
         }
     };
 
-
-    const confirmPayment = async () => {
-        const response = await payOrder(decodedToken.username, orderId);
-        if (response.status === 200) {
-            window.location.href = '/cart-confirm';
-        }
-    };
 
     return (
         <>
@@ -106,10 +134,36 @@ function CartPayment() {
                         </div>
                         <div className="border-2 border-primary md:h-min rounded-lg p-4 mt-8">
                             <h2 className="text-3xl font-semibold mb-4">Paiement</h2>
-                            ICI CA PAYE
-                            <div className="flex justify-center items-center mt-4">
-                                <button onClick={() => confirmPayment()} className="btn btn-primary">Payer</button>
-                            </div>
+                            <form onSubmit={handleSubmit}>
+                                <CardElement
+                                    options={{
+                                        style: {
+                                            base: {
+                                                color: '#333',
+                                                fontSize: '16px',
+                                                fontFamily: 'Arial, sans-serif',
+                                                '::placeholder': {
+                                                    color: '#aab7c4',
+                                                },
+                                            },
+                                            invalid: {
+                                                color: '#fa755a',
+                                                iconColor: '#fa755a',
+                                            },
+                                        },
+                                    }}
+                                />                                <button type="submit" disabled={!stripe} className="btn btn-primary">
+                                    Payer
+                                </button>
+                                <div className="flex justify-center items-center mt-4">
+                                    <div>{paymentStatus}</div>
+                                </div>
+                            </form>
+
+
+                            {/*<div className="flex justify-center items-center mt-4">*/}
+                            {/*    <button onClick={() => confirmPayment()} className="btn btn-primary">Payer</button>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
